@@ -1,7 +1,7 @@
 all: public/index.html
 
 public/index.html: README.adoc README.bib Makefile
-	python3 ./tools/nfkc.py --fix && \
+	python3 ./tools/nfkc.py && \
 	mkdir -p public && \
 	cd public && \
     touch Gemfile && \
