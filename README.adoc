@@ -74,6 +74,7 @@ To avoid regressions and uncollaborative practices, repositories:
 === Code Guidelines
 
 To improve collective development experience, the authors:
+
 * Should normalize sources to NFKC form.
 
 === Code Languages
