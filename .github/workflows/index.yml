@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Make Directory
-      run: mkdir public
+      run: mkdir -p public
     - name: No Jekyll
       run: touch public/.nojekyll
     - name: Set up Python
