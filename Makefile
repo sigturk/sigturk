@@ -5,7 +5,7 @@ public/index.html: README.adoc README.bib Makefile
 	mkdir -p public && \
 	cd public && \
     touch Gemfile && \
-    echo "source 'https://rubygems.org'\n\ngem 'asciidoctor-revealjs'\n" > Gemfile && \
+    printf "source 'https://rubygems.org'\n\ngem 'asciidoctor-revealjs'\n" > Gemfile && \
     bundle config --local path .bundle/gems && \
     bundle && \
     (git -C reveal.js pull || git clone -b 3.9.2 --depth 1 --single-branch https://github.com/hakimel/reveal.js.git) && \
