@@ -9,6 +9,8 @@ public/index.html: README.adoc README.bib Makefile
     bundle config --local path .bundle/gems && \
     bundle && \
     (git -C reveal.js pull || git clone -b 3.9.2 --depth 1 --single-branch https://github.com/hakimel/reveal.js.git) && \
+	rm -rf reveal.js/.git && \
+	rm -rf reveal.js/.gitignore && \
     bundle exec asciidoctor-revealjs ../README.adoc && \
 	mv ../README.html ./README.presentation.html && \
 	asciidoctor -r asciidoctor-diagram -r asciidoctor-bibtex -o index.html ../README.adoc && \
