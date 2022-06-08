@@ -1,0 +1,80 @@
+name: SIGTURK Core
+
+on:
+  push:
+    branches: [ "**", "!gh-pages" ]
+  pull_request:
+    branches: [ "**", "!gh-pages" ]
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Make Directory
+      run: mkdir -p public
+    - name: No Jekyll
+      run: touch public/.nojekyll
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+    - name: Set up Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'
+        bundler-cache: true
+    - name: Install Bundler
+      run: gem install bundler
+    - name: Install Mermaid CLI
+      run: npm install -g @mermaid-js/mermaid-cli
+    - name: Install Asciidoctor
+      run: gem install asciidoctor
+    - name: Install Asciidoctor Diagram
+      run: gem install asciidoctor-diagram
+    - name: Install asciidoctor-bibtex
+      run: gem install asciidoctor-bibtex
+    - name: Branch from ref
+      id: branch_from_ref
+      run: echo "::set-output name=branch_from_ref::$(python3 ./tools/branch-from-ref.py ${{ github.ref }})"
+    - name: NFKC
+      run: python3 ./tools/nfkc.py
+    - name: Build
+      run: |
+        cd public
+        touch Gemfile
+        printf "source 'https://rubygems.org'\n\ngem 'asciidoctor-revealjs'\n" > Gemfile
+        bundle config --local path .bundle/gems
+        bundle
+        (git -C reveal.js pull || git clone -b 3.9.2 --depth 1 --single-branch https://github.com/hakimel/reveal.js.git)
+        rm -rf reveal.js/.git
+        rm -rf reveal.js/.gitignore
+        bundle exec asciidoctor-revealjs ../README.adoc
+        mv ../README.html ./README.presentation.html
+        asciidoctor -r asciidoctor-diagram -r asciidoctor-bibtex -o index.html ../README.adoc
+        rm -rf .asciidoctor
+        rm -rf .bundle
+    - name: Deploy Main
+      if: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        keep_files: true
+    - name: Deploy Preview
+      if: ${{ github.ref != 'refs/heads/main' && github.event_name != 'pull_request' }}
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        destination_dir: ./preview/${{ steps.branch_from_ref.outputs.branch_from_ref }}
+        keep_files: true

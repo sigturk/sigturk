@@ -1,0 +1,160 @@
+= SIGTURK Core
+:bibtex-style: apa
+:bibtex-throw: true
+:toc:
+
+This document is a non-normative or informative specification to provide SIGTURK activities with core guidelines. These specifics detail technical and general concerns to increase interoperability, reusability, extensibility, compatibility, inclusivity, and diversity. Implementation should facilitate through an issue, discussion, code, consensus-based resolution, and merge process that works in sync or online and async or offline modes.
+
+SIGTURK Core, `+sigturk/sigturk+`, and Core names refer to the same document and its containing repository.
+
+== TODO: Conduct
+
+TODO: Wording section
+
+== Meeting
+
+[mermaid, format=svg]
+....
+gantt 
+dateFormat HH:mm
+axisFormat %H:%M
+Meeting Start : milestone, m1, 00:00, 0min
+Code Review : 20min
+Issue Review : 20min
+Meeting End : milestone, m2, 01:00, 0min
+....
+
+SIGTURK meetings:
+
+1. Should start with Code Review in case there are PRs in Core or other repositories of interest,
+** These reviews should aim to reach a consensus, leave a positive review or constructive feedback, and merge.
+2. Should continue with Issue review if there are issues in Core or other repositories of interest.
+
+== Tooling
+
+=== Repo Guidelines
+
+To avoid regressions and uncollaborative practices, repositories:
+
+* Should use GitHub Actions or equivalent to automate as many guidelines as possible,
+** Whenever possible, a behavior-replicating Makefile or Dockerfile should be present for local testing,
+* Should use GitHub Pages or equivalent to provide web access,
+* Should utilize preview subdirectories to provide web access for PRs,
+* Should use CC0,
+* Should ignore build artifacts,
+* Should ignore system artifacts,
+* Should disable Wikis,
+* Should disable Issues unless Core,
+* Should disable Sponsorships,
+* Should disable Projects,
+* Should enable Preservation,
+* Should disable Discussions,
+* Should NOT allow merge commits,
+* Should allow squash merging,
+* Should default to PR title for squash merge commits,
+* Should NOT allow rebasing merging,
+* Should NOT allow auto-merge,
+* Should NOT automatically delete head branches,
+* Should NOT contain branches intended for development purposes that SIGTURK does not publish,
+* Should NOT contain failing commits in history,
+* Should NOT allow self-reviews,
+* Should NOT allow self-merges,
+* Should protect main and other meaningful branches by:
+** Requiring a pull request before merging,
+** Requiring at least one approval,
+** NOT allowing bypass required pull requests,
+** Requiring status checks to pass before merging,
+** Requiring branches to be up to date before merging,
+** Requiring conversation resolution before merging,
+** Requiring deployments to succeed before merging,
+** NOT allowing force pushes,
+** NOT allowing deletions,
+** Enforcing all these rules for owners, administrators, members, and associates.
+
+=== Code Guidelines
+
+To improve collective development experience, the authors:
+
+* Should normalize sources to NFKC form.
+
+=== Code Languages
+
+====
+Documents:: Asciidoc
+
+Scripts:: Python 3.11
+
+Compiles:: Rust 1.62
+
+Diagrams:: Mermaid
+
+Citations:: BibTeX
+
+Characters:: Unicode 14.0
+====
+
+==== Scripts
+
+Scripts should use Python 3.11.
+
+==== Compiles
+
+Codes that compile should use Rust 1.62.
+
+==== Diagrams
+
+Diagrams should use Mermaid. The output should be vector and not raster.
+
+[NOTE]
+.Diagrams in Asciidoc
+====
+With the Asciidoctor Diagram extension, authors can use the following syntax to embed Mermaid visuals in vector:
+
+.....
+[mermaid, format=svg]
+....
+graph TD;
+ A-->B;
+ A-->C;
+ B-->D;
+ C-->D;
+....
+.....
+
+Result:
+[mermaid, format=svg]
+....
+graph TD;
+ A-->B;
+ A-->C;
+ B-->D;
+ C-->D;
+....
+====
+
+==== Citations
+
+Bibliography and citations should use BibTeX format. The bibliography should go inside a `+*.bib+` file.
+
+[NOTE]
+.Citing in Asciidoc
+====
+With the `+asciidoctor-bibtex+` extension, authors can use the following syntax to cite entries:
+
+....
+cite:[johanson_2021], citenp:[robbeets_savelyev_2021]
+....
+
+Result with `+:bibtex-style: apa+`:
+
+cite:[johanson_2021], citenp:[robbeets_savelyev_2021]
+====
+
+==== Characters
+
+Tools should interpret characters by Unicode 14.0.
+
+[bibliography]
+== References
+
+bibliography::[]
