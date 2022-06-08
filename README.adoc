@@ -9,7 +9,7 @@ SIGTURK Core, `+sigturk/sigturk+`, and Core names refer to the same document and
 
 == TODO: Conduct
 
-TODO: Wording
+TODO: Wording section
 
 == Meeting
 
