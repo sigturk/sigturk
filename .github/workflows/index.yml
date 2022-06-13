@@ -43,9 +43,17 @@ jobs:
       run: gem install asciidoctor-diagram
     - name: Install asciidoctor-bibtex
       run: gem install asciidoctor-bibtex
+    - name: Install Python Requirements
+      run: python3 -m pip install -r requirements.txt
     - name: Branch from ref
       id: branch_from_ref
       run: echo "::set-output name=branch_from_ref::$(python3 ./tools/branch-from-ref.py ${{ github.ref }})"
+    - name: Black
+      run: black **/*.py --check
+    - name: Pylama
+      run: pylama **/*.py
+    - name: Bandit
+      run: bandit **/*.py -ll
     - name: NFKC
       run: python3 ./tools/nfkc.py
     - name: Build
@@ -55,7 +63,7 @@ jobs:
         printf "source 'https://rubygems.org'\n\ngem 'asciidoctor-revealjs'\n" > Gemfile
         bundle config --local path .bundle/gems
         bundle
-        (git -C reveal.js pull || git clone -b 3.9.2 --depth 1 --single-branch https://github.com/hakimel/reveal.js.git)
+        (if [ ! -d "reveal.js" ] ; then git clone -b 3.9.2 --depth 1 --single-branch https://github.com/hakimel/reveal.js.git ; fi )
         rm -rf reveal.js/.git
         rm -rf reveal.js/.gitignore
         bundle exec asciidoctor-revealjs ../README.adoc
