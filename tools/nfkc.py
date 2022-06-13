@@ -15,4 +15,4 @@ for file in files:
         if fix:
             open(file, "w").write(normalized)
         else:
-            raise SystemExit("Error: README.* files are not NFKC normalized.")
+            raise SystemExit("Error: Source files are not NFKC normalized.")
