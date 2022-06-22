@@ -16,7 +16,6 @@ eslint-report.html
 /.gitlab_shell_secret
 .idea
 .nova
-/.vscode/*
 /.rbenv-version
 .rbx/
 /.ruby-gemset
@@ -294,7 +293,6 @@ Session.vim
 .cproject
 .idea
 *.iml
-.vscode
 .project
 .favorites.json
 .settings/
