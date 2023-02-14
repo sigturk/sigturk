@@ -82,6 +82,8 @@ To improve collective development experience, the authors:
 ====
 Documents:: Asciidoc
 
+Web:: TypeScript 4.9
+
 Scripts:: Python 3.11
 
 Compiles:: Rust 1.62
@@ -92,6 +94,10 @@ Citations:: BibTeX
 
 Characters:: Unicode 14.0
 ====
+
+==== Web
+
+Web should use TypeScript 4.9 for targeting JavaScript.
 
 ==== Scripts
 
